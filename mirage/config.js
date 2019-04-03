@@ -24,7 +24,7 @@ export default function () {
     http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
   */
   this.namespace = '/api';
-  this.get('/rentals', function() {
+  this.get('/rentals', function () {
     return {
       data: [{
         type: 'rentals',
