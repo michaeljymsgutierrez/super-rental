@@ -1,10 +1,6 @@
 {{!-- {{yield}} --}}
 <article class="listing">
-  <a
-    onclick={{action "toggleImageSize"}}
-    class="image {{if this.isWide "wide"}}"
-    role="button"
-  >
+  <a onclick={{action "toggleImageSize"}} class="image {{if this.isWide "wide"}}" role="button">
     <img src={{this.rental.image}} alt="">
     <small>View Larger</small>
   </a>
@@ -23,4 +19,5 @@
       <span>Number of bedrooms:</span> {{this.rental.bedrooms}}
     </div>
   </div>
+  <LocationMap @location={{this.rental.city}} />
 </article>
