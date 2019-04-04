@@ -1,0 +1,91 @@
+diff --git a/app/router.js b/app/router.js
+index 0c2c572..ba2676b 100644
+--- a/app/router.js
++++ b/app/router.js
+@@ -9,7 +9,10 @@ const Router = EmberRouter.extend({
+ Router.map(function() {
+   this.route('about');
+   this.route('contact');
+-  this.route('rentals');
++  this.route('rentals', function() {
++    // this.route('show');
++    this.route('show', { path: '/:rental_id' });
++  });
+ });
+ 
+ export default Router;
+diff --git a/app/routes/rentals.js b/app/routes/rentals.js
+index 2bb20ad..01db957 100644
+--- a/app/routes/rentals.js
++++ b/app/routes/rentals.js
+@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
+ 
+ export default Route.extend({
+   model() {
+-  return this.store.findAll('rental');
++  // return this.store.findAll('rental');
+   //   return [{
+   //     id: 'grand-old-mansion',
+   //     title: 'Grand Old Mansion',
+diff --git a/app/templates/components/rental-listing.hbs b/app/templates/components/rental-listing.hbs
+index 882ae16..7ed25f6 100644
+--- a/app/templates/components/rental-listing.hbs
++++ b/app/templates/components/rental-listing.hbs
+@@ -5,7 +5,8 @@
+     <small>View Larger</small>
+   </a>
+   <div class="details">
+-    <h3>{{this.rental.title}}</h3>
++    {{!-- <h3>{{this.rental.title}}</h3> --}}
++    <h3>{{#link-to "rentals.show" rental class=rental.id}}{{this.rental.title}}{{/link-to}}</h3>
+     <div class="detail owner">
+       <span>Owner:</span> {{this.rental.owner}}
+     </div>
+diff --git a/app/templates/rentals.hbs b/app/templates/rentals.hbs
+index a29774a..1fdbac4 100644
+--- a/app/templates/rentals.hbs
++++ b/app/templates/rentals.hbs
+@@ -1,5 +1,5 @@
+ {{!-- {{outlet}} --}}
+-{{!-- <div class="jumbo">
++<div class="jumbo">
+   <div class="right tomster"></div>
+   <h2>Welcome!</h2>
+   <p>We hope you find exactly what you're looking for in a place to stay.</p>
+@@ -7,7 +7,7 @@
+     About Us
+   {{/link-to}}
+ </div>
+-{{#each this.model as |rental|}}
++{{!-- {{#each this.model as |rental|}}
+   <article class="listing">
+     <div class="details">
+       <h3>{{rental.title}}</h3>
+@@ -29,13 +29,4 @@
+ {{!-- {{#each this.model as |rentalUnit|}}
+   <RentalListing @rental={{rentalUnit}} />
+ {{/each}} --}}
+-<ListFilter @filter={{action "filterByCity"}} as |filteredResults|>
+-  <ul class="results">
+-    {{#each filteredResults as |rentalUnit|}}
+-      <li>
+-        <RentalListing @rental={{rentalUnit}} />
+-      </li>
+-    {{/each}}
+-  </ul>
+-</ListFilter>
+ {{outlet}}
+\ No newline at end of file
+diff --git a/mirage/config.js b/mirage/config.js
+index 15877d1..05399bb 100644
+--- a/mirage/config.js
++++ b/mirage/config.js
+@@ -87,4 +87,8 @@ export default function() {
+       return { data: rentals };
+     }
+   });
++    // Find and return the provided rental from our rental list above
++    this.get('/rentals/:id', function (db, request) {
++      return { data: rentals.find((rental) => request.params.id === rental.id) };
++    });
+ }
