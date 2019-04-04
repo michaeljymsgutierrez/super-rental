@@ -13,8 +13,8 @@ export default Component.extend({
     handleFilterEntry() {
       let filterInputValue = this.value;
       let filterAction = this.filter;
-      filterAction(filterInputValue).then(filterResults =>{
-        this.set("results", filterResults)
+      filterAction(filterInputValue).then(filterResults => {
+        this.set("results", filterResults);
       });
     }
   }
