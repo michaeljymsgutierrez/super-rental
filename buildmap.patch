@@ -1,0 +1,35 @@
+diff --git a/app/templates/components/rental-listing.hbs b/app/templates/components/rental-listing.hbs
+index 2b1f4dd..882ae16 100644
+--- a/app/templates/components/rental-listing.hbs
++++ b/app/templates/components/rental-listing.hbs
+@@ -1,10 +1,6 @@
+ {{!-- {{yield}} --}}
+ <article class="listing">
+-  <a
+-    onclick={{action "toggleImageSize"}}
+-    class="image {{if this.isWide "wide"}}"
+-    role="button"
+-  >
++  <a onclick={{action "toggleImageSize"}} class="image {{if this.isWide "wide"}}" role="button">
+     <img src={{this.rental.image}} alt="">
+     <small>View Larger</small>
+   </a>
+@@ -23,4 +19,5 @@
+       <span>Number of bedrooms:</span> {{this.rental.bedrooms}}
+     </div>
+   </div>
++  <LocationMap @location={{this.rental.city}} />
+ </article>
+\ No newline at end of file
+diff --git a/mirage/config.js b/mirage/config.js
+index 1d66d12..15877d1 100644
+--- a/mirage/config.js
++++ b/mirage/config.js
+@@ -23,6 +23,7 @@ export default function() {
+     http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
+   */
+   this.namespace = "/api";
++  this.passthrough("https://api.mapbox.com/**");
+ 
+   let rentals = [
+     {
