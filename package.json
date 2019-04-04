@@ -15,7 +15,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "ember:token": "LEAFLET_MAPS_API_KEY=pk.eyJ1IjoiY2hhZWxndXRpZXJyZXoiLCJhIjoiY2p0emlvMG9kMWhhNDN6bWZ6eDF1NHhyNCJ9.iBzaUEujGJhlfqc41ncWCg ember s"
   },
   "devDependencies": {
     "@ember/jquery": "^0.5.2",
