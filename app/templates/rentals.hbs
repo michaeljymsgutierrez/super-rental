@@ -1,5 +1,5 @@
 {{!-- {{outlet}} --}}
-{{!-- <div class="jumbo">
+<div class="jumbo">
   <div class="right tomster"></div>
   <h2>Welcome!</h2>
   <p>We hope you find exactly what you're looking for in a place to stay.</p>
@@ -7,7 +7,7 @@
     About Us
   {{/link-to}}
 </div>
-{{#each this.model as |rental|}}
+{{!-- {{#each this.model as |rental|}}
   <article class="listing">
     <div class="details">
       <h3>{{rental.title}}</h3>
@@ -29,13 +29,4 @@
 {{!-- {{#each this.model as |rentalUnit|}}
   <RentalListing @rental={{rentalUnit}} />
 {{/each}} --}}
-<ListFilter @filter={{action "filterByCity"}} as |filteredResults|>
-  <ul class="results">
-    {{#each filteredResults as |rentalUnit|}}
-      <li>
-        <RentalListing @rental={{rentalUnit}} />
-      </li>
-    {{/each}}
-  </ul>
-</ListFilter>
 {{outlet}}
